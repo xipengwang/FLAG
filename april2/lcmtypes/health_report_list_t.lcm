@@ -1,0 +1,5 @@
+struct health_report_list_t
+{
+    int32_t nreports;
+    health_report_t reports[nreports];
+}

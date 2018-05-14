@@ -1,0 +1,23 @@
+APRIL_LCM_DIR   := $(realpath $(CURDIR)/../../lcmtypes)
+
+# Just the list of type names
+APRIL_LCM       := $(notdir $(shell ls $(APRIL_LCM_DIR)/*.lcm))
+
+# The list of .c and .h files that we will generate
+APRIL_LCM_C     := $(APRIL_LCM:%.lcm=%.c)
+APRIL_LCM_H     := $(APRIL_LCM:%.lcm=%.h)
+APRIL_LCM_O     := $(APRIL_LCM:%.lcm=%.o)
+
+%.c %.h : $(APRIL_LCM_DIR)/%.lcm
+	lcm-gen -c $< --cinclude lcmtypes/
+
+CFLAGS := $(CFLAGS_STD) -I..
+LDFLAGS := $(LDFLAGS_STD)
+
+$(LIB_PATH)/libaprillcmtypes.a: $(APRIL_LCM_O)
+	ar rc $@ $^
+
+all: $(APRIL_LCM_C) $(APRIL_LCM_H) $(LIB_PATH)/libaprillcmtypes.a
+
+clean:
+	rm -rf *.o *.c *.h

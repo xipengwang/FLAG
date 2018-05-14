@@ -1,0 +1,6 @@
+struct lcmdoubles_t
+{
+    int64_t utime;
+    int32_t ndata;
+    double  data[ndata];
+}

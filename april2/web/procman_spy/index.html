@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-15" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-touch-fullscreen" content="yes">
+
+<script type="text/javascript" src="marshalling.js"></script>
+<script type="text/javascript" src="common.js"></script>
+<script type="text/javascript" src="procman_spy/pspy.js"></script>
+<link rel="stylesheet" type="text/css" href="procman_spy/style.css"
+
+</head>
+
+<body>
+
+<div style="font-weight: bold; font-size: 32px; padding: 10px" > Procman Spy </div>
+
+<table id='table'>
+    <th> </th>
+    <th>Group</th>
+    <th>Name</th>
+    <th>enabled</th>
+    <th>running</th>
+    <th>Command</th>
+    <th>Host</th>
+    <th>pid</th>
+    <th>restarts</th>
+    <th>last exit</th>
+    <th>auto restart</th>
+    <th>rs delay</th>
+</table>
+
+<div>
+    <div id="startBtn" class="button">
+        Start Selected
+    </div>
+    <div id="stopBtn" class="button" >
+        Stop Selected
+    </div>
+    <div id="scrollBtn" class="button clicked">
+        AutoScroll
+    </div>
+
+</div>
+<div class="textHeader">
+    <div class="filled">STDERR</div>
+    <div class="filled">STDOUT</div>
+</div>
+
+<div class="textHolder">
+    <textArea id="stdErr" style="min-height:20em;">
+    </textArea>
+
+    <textArea id="stdOut" style="min-height:20em;">
+    </textArea>
+</div>
+
+<div id="timeoutwindow" style="height: 50px; top: 30%; width: 100%; height: 69px; background: #f63; position: absolute; display: none;">
+    <div id="timeoutwindowtext" style="font-weight:bold; padding: 10px; font-family: sans-serif; text-align: center">Timeout</div>
+    <div id=timeoutwindowlink" style="font-weight:bold; text-align: center"><a href="javascript:location.reload();">refresh</a></div>
+</div>
+
+</body>
+
+<script>
+
+var pspy = new ProcmanSpy();
+
+</script>
+</html>

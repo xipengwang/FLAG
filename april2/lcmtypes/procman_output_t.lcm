@@ -1,0 +1,18 @@
+// procman daemons publish stdout and stderr using a procman_output_t message.
+// controller utimes included to filter old messages (e.g. playing a log while
+// running procman)
+struct procman_output_t
+{
+    // the daemon's local utime.
+	int64_t utime;
+
+    // the initialization time of the controller
+    int64_t received_init_utime;
+
+    string  host;
+    int32_t procid;
+
+    int32_t stream; // 0 = stdout, 1 = stderr
+
+    string  data;
+}

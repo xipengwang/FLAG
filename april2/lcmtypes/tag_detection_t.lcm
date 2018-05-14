@@ -1,0 +1,27 @@
+struct tag_detection_t
+{
+    int8_t tag_family_bit_width;        // e.g. 36h11 -> 6
+    int8_t tag_family_min_hamming_dist; // e.g. 36h11 -> 11
+
+    // decoded tag id
+    int32_t id;
+
+    // number of corrected error bits
+    int8_t  hamming_dist;
+
+    // average of differences between sampled intensity
+    // and bit classification threshold
+    float goodness;
+
+    // 3x3 homography matrix projecting from "tag frame"
+    // (corners at (-1,-1), (1,-1), (1,1), and (-1, 1))
+    // center at (0,0) to image pixels
+    float H[3][3];
+
+    // center of tag in image pixel coordinates
+    float cxy[2];
+
+    // corners of tag in image pixel coordinates.
+    // always wrap counter-clockwise around tag
+    float pxy[4][2];
+}

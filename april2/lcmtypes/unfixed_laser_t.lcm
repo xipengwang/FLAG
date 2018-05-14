@@ -1,0 +1,16 @@
+struct unfixed_laser_t
+{
+    int64_t utime;
+
+    // Range data in meters along with angle measurement
+    // was taken at in radians. Optionally included: time
+    // measurement was taken in usec
+    int32_t nranges;
+    float ranges[nranges];      // [m]
+    float thetas[nranges];      // [rad]
+    int64_t times[nranges];     // [usec]
+
+    // Intensity data in sensor-specific units
+    int32_t nintensities;
+    float intensities[nintensities];
+}

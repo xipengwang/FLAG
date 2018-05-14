@@ -1,0 +1,48 @@
+.noselect {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    cursor: pointer;
+}
+
+.vxcanvas {
+    border: none;
+    contentEditable: false;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select:none;
+    -ms-user-select: none;
+}
+
+.handle {
+    background-image: linear-gradient(transparent 50%, rgba(255,255,255,.5) 50%);
+    background-size: 3px 3px;
+}
+
+.draggable_buffer nth-child(even) {
+    background-color: "#f00";
+}
+
+.draggable_buffer {
+
+}
+
+.draggable_layer {
+
+}
+
+.draggable_selected {
+    background-color: #ffd;
+}
+
+.draggable_not_selected {
+    background-color: #ddd;
+}
+
+.menu {
+    background: #00f;
+}
+
+.menu :hover {
+    background: #ff0;
+}

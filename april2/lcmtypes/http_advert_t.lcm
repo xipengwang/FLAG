@@ -1,0 +1,7 @@
+struct http_advert_t
+{
+    int64_t utime;
+    int32_t port;
+    string  name;
+    string  desc;
+}

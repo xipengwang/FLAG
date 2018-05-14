@@ -1,0 +1,7 @@
+struct alarm_t
+{
+	int64_t utime;
+
+	string topic;
+	string message;
+}

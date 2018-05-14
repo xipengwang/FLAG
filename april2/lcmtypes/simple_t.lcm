@@ -1,0 +1,12 @@
+struct simple_t
+{
+    int64_t simple_utime;
+    double simple_posefix[4]; //array inline comment
+    int8_t a;
+    pose_t simple_posea[a];
+    int8_t b;
+    double simple_poseab[a][b];
+
+    //before foo
+    const int8_t foobar = 3; //after foo
+}

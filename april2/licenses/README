@@ -1,0 +1,9 @@
+This folder contains archival versions of licenses. The presence of
+these licenses in this folder does not mean that any particular
+software is licensed under these terms. Rather, individual software
+files may refer to licenses in this folder.
+
+In general, software in this library is released under the GNU LGPL.
+With the exception of software files under the directory src/apriltag,
+and software files in the directory src/common that src/apriltag
+depends on. These files are generally released under the BSD license.

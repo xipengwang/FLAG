@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-15" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-touch-fullscreen" content="yes">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+<script src="webgl-debug.js"></script>
+<script type="text/javascript" src="common.js"></script>
+<script type="text/javascript" src="mat.js"></script>
+<script type="text/javascript" src="vx_util.js"></script>
+    <script type="text/javascript" src="vx.js"></script>
+    <script type="text/javascript" src="vx_camera.js"></script>
+    <script type="text/javascript" src="vx_layer_manager.js"></script>
+    <script type="text/javascript" src="uc5.js"></script>
+    <script type="text/javascript" src="draggable_list.js"></script>
+    <script type="text/javascript" src="pane.js"></script>
+    <script type="text/javascript" src="menu.js"></script>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+
+<body style="margin: 0px; overflow: hidden">
+<div id="webgl-fail" style="display: none;">Your browser does not seem to support WebGL.<br>Please visit <a href="http://get.webgl.org" target="_blank">get.webgl.org</a> for troubleshooting assistance. If it has worked previously, your browser may need to be restarted.
+</div>
+
+<!-- oncontextmenu clause is necessary to gets right mouse button
+events. tabindex is necessary for the canvas to get focus and thus
+generate key events. -->
+
+<!-- cursor: none; -->
+<canvas id="mycanvas" class="vxcanvas" tabindex='1'></canvas> </body>
+
+<div class=noselect id=bufferlayerwindow style="top: 5px; left: 5px; position: absolute; background: #ddd; ">
+  <div id=bufferlayerwindow-bar style="background: #f0f; height: 20px; font-weight: bold; font-family: sans-serif; padding: 10px; overflow: hidden;">Buffer/Layers</div>
+  <div id=bufferlayerwindow-content style="position: fixed;"></div>
+</div>
+
+<div id="timeoutwindow" style="height: 50px; top: 30%; width: 100%; height: 69px; background: #f63; position: absolute; display: none;">
+    <div id="timeoutwindowtext" style="font-weight:bold; padding: 10px; font-family: sans-serif; text-align: center">Timeout</div>
+    <div id=timeoutwindowlink" style="font-weight:bold; text-align: center"><a href="javascript:location.reload();">refresh</a></div>
+</div>
+
+
+<script>
+new Pane(document.getElementById("bufferlayerwindow"),
+         document.getElementById("bufferlayerwindow-bar"),
+         document.getElementById("bufferlayerwindow-content"));
+
+try {
+    var vc = new VxCanvas("mycanvas");
+    new VxLayerManager(vc, document.getElementById("bufferlayerwindow-content"));
+
+} catch(err) {
+    document.getElementById("webgl-fail").style.display = "block";
+    window.stop();
+}
+
+
+///////////////////////////////////
+// Autoresizing canvas
+function canvas_fit_to_window() {
+    var canvas = document.getElementById("mycanvas");
+
+   if (canvas.no_resize == true)
+      return;
+
+    var devicePixelRatio = window.devicePixelRatio || 1;
+
+    var goalWidth = window.innerWidth;
+    var goalHeight = window.innerHeight;
+
+    // display size
+    canvas.style.width = goalWidth + "px";
+    canvas.style.height = goalHeight + "px";
+
+    // content size
+    canvas.width = Math.floor(devicePixelRatio * goalWidth);
+    canvas.height = Math.floor(devicePixelRatio * goalHeight);
+}
+
+window.addEventListener("resize", function(e) {
+    canvas_fit_to_window();
+    vc.requestRedraw();
+ });
+
+canvas_fit_to_window();
+
+
+</script>
+</html>

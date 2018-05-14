@@ -1,0 +1,5 @@
+struct lcmint64_t
+{
+    int64_t utime;
+    int64_t  data;
+}

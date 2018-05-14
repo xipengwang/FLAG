@@ -1,0 +1,23 @@
+struct gps_t
+{
+	const int8_t GPS_STATUS_ERROR = 0;
+	const int8_t GPS_STATUS_NO_LOCK = 1;
+	const int8_t GPS_STATUS_LOCK = 2;
+	const int8_t GPS_STATUS_DGPS_LOCK = 3;
+
+    int64_t host_utime; // Best estimate of when this message is from, host clock
+    int64_t utc_utime;  // (Optional) UTC time of when this message was generated.
+
+    double lat, lon;
+    double elevation; // Meters above sea level
+
+    double horiz_dop; // horizontal dilution of precision due to satellite geometry.
+    double time_dop; // dilution of precision for time synchronization
+    int8_t nsats; // number of satellites
+
+    double err_x; // meters covariance EW
+    double err_y; // meters covariance NS
+    double err_z; // meters covariance UD
+
+    int8_t status; // one of GPS_STATUS_ERROR, GPS_STATUS_LOCK, etc
+}

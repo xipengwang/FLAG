@@ -1,0 +1,11 @@
+struct ubx_t
+{
+    int64_t utime;
+
+    // u-blox UBX protocol message
+    int8_t cls;
+    int8_t id;
+
+    int32_t len;
+    byte data[len];
+}

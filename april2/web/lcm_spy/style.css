@@ -1,0 +1,49 @@
+body {
+    font-family: "Helvetica", "Arial", sans-serif;
+    margin: 0;
+}
+
+#list-container, #msg {margin: 8px;}
+#list-clear {margin-top: 8px;}
+#msg {font-size: 11pt;}
+#msg-container {
+    display: none;
+    background: #eee;
+}
+#msg-scroll {overflow: auto; width: 100%; height: 100%;}
+#error-container {
+    background: #fcc;
+    padding: 10px;
+    margin-bottom: 10px;
+    display: none;
+}
+
+table {border-collapse: collapse; font-size:100%;}
+.even {background: #def;}
+.odd  {background: #fff;}
+.list-cell {padding: 2px 8px;}
+.list-row:hover {background: #abf; cursor: pointer;}
+.highlight {background: #abf;}
+
+.struct {border: none; margin-bottom: 5px;}
+.struct-cell {vertical-align: top; padding: 0 6px;}
+.struct-type {font-style: italic;}
+.struct-index {vertical-align: top; padding: 0; color: #999;}
+
+.fixed-right {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 40%;
+    height: 100%;
+    border-left: 2px solid #ccc;
+}
+.resize-handle {
+    position: absolute;
+    left: -6px;
+    top: 0;
+    width: 10px;
+    height: 100%;
+    background: transparent;
+}
+.resize-handle:hover {cursor: col-resize;}

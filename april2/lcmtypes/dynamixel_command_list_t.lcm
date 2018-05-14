@@ -1,0 +1,5 @@
+struct dynamixel_command_list_t
+{
+  int32_t len;
+  dynamixel_command_t commands[len];
+}

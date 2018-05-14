@@ -1,0 +1,16 @@
+struct dynamixel_command_t
+{
+    int64_t utime;
+
+    // Servo id
+    // Actually only 8 bits wide.
+    int16_t id;
+
+    // position of servo in radians, [-pi, pi]. A command of zero
+    // corresponds to the mid-way position (usually indicated on the
+    // servo by a position notch.)
+    double position_radians;
+
+    double speed; // how fast to move to new position [0, 1]
+    double max_torque; // torque limit [0, 1]
+}

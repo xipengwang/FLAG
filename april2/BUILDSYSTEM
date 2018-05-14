@@ -1,0 +1,56 @@
+Each package exports a number of symbols:
+
+   * CFLAGS_X should be "whatever needs to be passed to the compiler
+in order to successfully build package Y". It is usually a list of -I
+options.
+
+   * LDFLAGS_X should be "whatever needs to be passed to the linker in
+order to successfully build package Y". It is usually a list of -L and
+-l options, and a list of libraries.
+
+   * DEP_X -- Is used to force relinking of a package if _X has been
+modified. It is closely related to LDFLAGS_X, but contains only
+library paths that should trigger linking (and does not contain other
+linker options.)
+
+For "leaf" packages (i.e., an actual program), you probably don't need
+to export anything.
+
+------------------
+Rules.mk
+------------------
+
+The Rules.mk file is part of the "package-level" build system. In this
+file, you:
+
+      1. Pick a package name, by convention all lowercase (with underscores).
+      	 We will assume 'foo_bar'.
+
+      2. Define CFLAGS_FOO_BAR, LDFLAGS_FOO_BAR, and
+      	 DEPS_FOO_BAR. These are for use by people who have a
+      	 dependence ON your package, not for use in building your
+      	 package.
+
+      3. Define phony targets "foo_bar" and "foo_bar_clean". Add these targets to
+      	 the system-wide 'all' and clean' rules: e.g.:
+
+	 .phony foo_bar foo_bar_clean
+
+	 all: foo_bar
+               <---- NOTE: do not include any action here!
+
+	 clean: foo_bar_clean
+               <---- NOTE: do not include any action here!
+
+      4. For foo_bar, foo_bar_clean, simply invoke 'make' on the
+      appropriate Build.mk
+
+      5. Recursively include any sub-packages' Rules.mk files.
+
+------------------
+Build.mk
+------------------
+
+This is where you build your actual package. It will be invoked with
+knowledge of every package's CFLAGS_X, LDFLAGS_X, and DEPS_X
+variables.

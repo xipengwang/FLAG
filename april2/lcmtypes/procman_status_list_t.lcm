@@ -1,0 +1,18 @@
+// procman daemons respond with a status list every time they receive
+// a process_list command.
+struct procman_status_list_t
+{
+    // the daemon's local utime.
+    int64_t utime;
+
+    // the utime copied from the process_list
+    int64_t received_utime;
+
+    // the initialization time of the controller
+    int64_t received_init_utime;
+
+    string  host;
+
+    int32_t nprocs;
+    procman_status_t statuses[nprocs];
+}

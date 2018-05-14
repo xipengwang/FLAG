@@ -1,0 +1,5 @@
+*.zip
+apriltag_aws
+node_modules
+results.json*
+tmp

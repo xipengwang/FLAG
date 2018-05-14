@@ -1,0 +1,17 @@
+struct procman_status_t
+{
+    int32_t procid;
+
+    // is the process currently running
+    boolean running;
+
+    // process id
+    int32_t pid;
+
+    // how many times has the daemon restarted this process?
+    int32_t restarts;
+
+    // if the process has run and exit, its exit code goes here.  if
+    // the process has never run, this value is 0.
+    int32_t last_exit_code;
+}

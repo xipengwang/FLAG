@@ -1,0 +1,24 @@
+struct kvh_t
+{
+  // utime corresponding to integrator
+  int64_t  utime;
+
+  // conversion factor between integrator and radians
+  double   scale;
+  int64_t  integrator;
+  int64_t  integrator_utime0; // time at which integration began.
+
+  // radians per second rate [rad/s]
+  double   rate;
+
+  // time of last synchronization error or invalid flag
+  int64_t last_error_utime;
+
+  // 1 = last error was sync, 2 = last error was invalid, 4 = timesync error
+  int32_t last_error_flags;
+
+  // raw data.
+  int32_t nlog;
+  int64_t log_utimes[nlog];  // host utime samples, not timesyncd
+  int32_t log_samples[nlog]; // raw measurement
+}

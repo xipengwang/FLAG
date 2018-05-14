@@ -1,0 +1,7 @@
+# use local nodejs to dispatch many calls to aws lambda. writes to
+#  results.json
+# NB: Edit max_concurrent accordingly.
+nodejs local_dispatch.js
+
+# view results
+nodejs process.js results.json

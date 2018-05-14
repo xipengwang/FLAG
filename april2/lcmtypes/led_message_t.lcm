@@ -1,0 +1,23 @@
+struct led_message_t
+{
+    int64_t utime;
+
+    //string
+    string msg;
+
+    //rgb color to print string
+    int8_t red;
+    int8_t green;
+    int8_t blue;
+
+    //number of times to rotate the message before it will be removed.
+    int8_t rotate_keepalive;
+
+    //should contain the pid of the sending process.  This is used to
+    //determine which process sent which message so that messages can
+    //be selected in a round-robin fashion.  This field can be set to
+    //a random constant that is unique to your thread and is chosen at
+    //compile time.
+    int32_t pid;
+    int32_t mid;
+}

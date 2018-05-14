@@ -1,0 +1,17 @@
+struct draw_request_t
+{
+    /* utime - Timestamp of the draw object, in microseconds since UNIX epoch. */
+    int32_t utime;
+
+    /* buffer - The map "layer" to draw these objects on.
+
+       Sucessive requests with the same buffer name will overwrite or "update" previous data. Also,
+       It is good practice to prepend your subunit identifier to this field to avoid collisions.
+       (e.g. "ST.plan", "UM.walkers")
+    */
+    string buffer;
+
+    /* nobjects, objects - The objects to draw */
+    int32_t nobjects;
+    draw_object_t objects[nobjects];
+}

@@ -1,0 +1,11 @@
+struct sync_t
+{
+    // Filtered time of arrival
+    int64_t utime;
+
+    // Raw time of arrival
+    int64_t hosttime;
+
+    // Correlates a device's timestamp with the host time
+    int64_t devtime;
+}

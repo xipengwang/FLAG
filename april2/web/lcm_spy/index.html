@@ -1,0 +1,28 @@
+<html>
+<head>
+<title>LCM Spy</title>
+<link rel="stylesheet" type="text/css" href="style.css"/>
+<script src="marshalling.js"></script>
+<script src="lcm_spy.js"></script>
+</head>
+
+<body>
+<div id="error-container">
+    Disconnected from server. <a href="javascript:location.reload()">Refresh</a>
+</div>
+<div id="list-container">
+    <div id="list">Waiting for channel list...</div>
+    <button id="list-clear" type="button" onclick="spy.clear();spy.setActiveChannel(null);">Clear</button>
+</div>
+<div id="msg-container" class="fixed-right">
+    <div class="resize-handle" id="resize-handle"></div>
+    <div id="msg-scroll">
+        <div id="msg"></div>
+    </div>
+</div>
+<script>
+var spy = new LCMSpy();
+new HorizontalResize(document.getElementById("resize-handle"));
+</script>
+</body>
+</html>

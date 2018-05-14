@@ -1,0 +1,19 @@
+struct notice_t
+{
+    int64_t utime;        // timestamp at which notice was generated
+    int8_t  severity;     // severity level, one of * constants or negative for process-specific types
+    string  process;      // name of the emitting process
+    string  args;         // command-line arguments of process
+    string  hostname;     // name of host on which process is running
+    string  description;  // human-readable information for debugging
+
+    const int8_t FAILURE       = 1;    // fatal anomaly
+    const int8_t COMPROMISED   = 2;    // anomaly causing compromised run state
+    const int8_t SWAMPED       = 3;    // process is unable to keep up with data influx
+    const int8_t DEGRADED      = 4;    // recoverable anomaly degrading performance
+    const int8_t WARNING       = 5;    // recoverable anomaly not affecting performance
+    const int8_t INFO          = 6;    // benign information
+    const int8_t DEBUG0        = 7;    // debugging information, low verbosity
+    const int8_t DEBUG1        = 8;    // debugging information, medium verbosity
+    const int8_t DEBUG2        = 9;    // debugging information, high verbosity
+}

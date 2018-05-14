@@ -1,0 +1,15 @@
+# ignore emacs backup files
+*~
+\#*\#
+.\#*
+
+# ignore vim backup files
+*.swp
+*.swo
+[#]*[#]
+.#*
+
+*.sublime-project
+*.sublime-workspace
+
+*.gc*

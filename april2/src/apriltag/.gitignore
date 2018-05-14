@@ -1,0 +1,15 @@
+apriltag-demo
+make_alltags_ps
+debug*pnm
+debug*.ps
+callgrind.out.*
+cachegrind.out.*
+apriltag_demo
+apriltag_cpp_test
+*.tgz
+*.pnm
+*.pbm
+alltags.ps
+calib_batch
+artoolkit-extract
+apriltag1.*

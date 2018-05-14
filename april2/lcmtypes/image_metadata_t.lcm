@@ -1,0 +1,8 @@
+
+// Direct copy from bot_core_image_metadata_t.lcm
+struct image_metadata_t
+{
+  string key;
+  int32_t n;
+  byte value[n];
+}

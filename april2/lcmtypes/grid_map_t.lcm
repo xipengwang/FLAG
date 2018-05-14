@@ -1,0 +1,23 @@
+struct grid_map_t
+{
+    int64_t utime;
+
+    const int8_t ENCODING_NONE=0, ENCODING_GZIP=1, ENCODING_ARITH=2, ENCODING_TERNARY=127;
+    const int32_t TERNARY_OBSTACLE_MASK = 0x80;
+    const int32_t TERNARY_UNKNOWN_MASK  = 0x40;
+    const int32_t TERNARY_COST_MASK  = 0x3F;
+
+    int8_t encoding;
+
+    double x0;
+    double y0;
+
+    double meters_per_pixel;
+    int32_t datalen;
+
+    // dimensions in pixels
+    int32_t width;
+    int32_t height;
+    int32_t stride;
+    byte data[datalen];
+}

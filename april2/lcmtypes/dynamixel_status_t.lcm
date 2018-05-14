@@ -1,0 +1,18 @@
+struct dynamixel_status_t
+{
+  const int32_t ERROR_VOLTAGE = 1, ERROR_ANGLE_LIMIT = 2,
+    ERROR_OVERHEAT = 4, ERROR_OVERLOAD = 32;
+
+  int64_t utime;
+
+  // Actuallonly 8 bits wide.
+  int16_t id;
+
+  int32_t error_flags;
+
+  double position_radians; // position of servo in radians, [0, 5.2333]
+  double speed; // unsigned measure of angular velocity, [0, 1]
+  double load; // measure of motor current, [-1, 1]
+  double voltage; // supply voltage (volts)
+  double temperature; // temperature (celsius)
+}

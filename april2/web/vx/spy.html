@@ -1,0 +1,215 @@
+<html>
+<head>
+<title>LCM Spy</title>
+<style>
+body {
+    font-family: "Helvetica", "Arial", sans-serif;
+    display: flex;
+    flex-direction: column;
+}
+
+#list-container {float: left;}
+#msg-container {float: left;}
+#spy-container {
+    float: right;
+    flex-grow: 1;
+}
+
+table {border-collapse: collapse;}
+tr.even {background: #def;}
+tr.odd  {background: #fff;}
+th, td {padding: 2px 8px;}
+
+.obj-block {margin-left: 20px;}
+
+</style>
+<script>
+var activeChannel = null;
+
+function toggleVisibilityFn(element) {
+	return function() {
+		if (element.style.display == "none")
+			element.style.display = "block";
+		else
+			element.style.display = "none";
+	}
+}
+
+function makeToggleFn(channel) {
+	return function() {
+		if (activeChannel === channel) {
+			//document.getElementById("msg_"+activeChannel).style.display = "none";
+			activeChannel = null;
+			document.getElementById("msg-container").innerHTML = "";
+		} else {
+			//if (activeChannel !== null)
+			//	document.getElementById("msg_"+activeChannel).style.display = "none";
+			activeChannel = channel;
+			//document.getElementById("msg_"+activeChannel).style.display = "block";
+			ajax("/msg/"+activeChannel, msgCallback);
+		}
+	}
+}
+
+function listCallback(request)
+{
+	var labels = ["Channel", "Type", "Num Recv", "Num Error", "Hz", "Jitter", "Bandwidth"];
+	var properties = ["name", "type", "num", "err", "hz", "jit", "bw"];
+
+	var root = document.getElementById("list-container");
+
+	if (request.status != 200) {
+		root.innerHTML = "No response from server";
+	}
+
+	var list = JSON.parse(request.responseText);
+	list.channels.sort(function(a, b) {
+		if (a.name < b.name)
+			return -1;
+		else if (a.name === b.name)
+			return 0;
+		else return 1;
+	});
+
+	root.innerHTML = "";
+
+	var table = document.createElement("table");
+	table.id = "list";
+	root.appendChild(table);
+
+	var header = table.insertRow(-1);
+	for (var j = 0; j < labels.length; j += 1) {
+		var col = document.createElement("th");
+		col.innerHTML = labels[j];
+		header.appendChild(col);
+	}
+
+	for (var i = 0; i < list.channels.length; i += 1) {
+		var e = list.channels[i];
+		var row = table.insertRow(-1);
+		var className = (i % 2 == 0) ? "even" : "odd";
+		row.className = className;
+
+		for (var j = 0; j < labels.length; j += 1) {
+			var col = row.insertCell(j);
+			col.className = properties[j];
+
+			if (j == 0) {
+				var link = document.createElement("a");
+				link.innerHTML = e.name;
+				link.href = "javascript:;";
+				link.onclick = makeToggleFn(e.name);
+				col.appendChild(link);
+			} else {
+				col.innerHTML = e[properties[j]];
+			}
+		}
+		// Empty row for struct viewer
+		row = table.insertRow(-1);
+		row.className = className;
+		var col = row.insertCell(-1);
+		col.colSpan = "" + properties.length;
+		col.id = "msg_" + e.name;
+		col.className = "msg";
+		//col.style.display = (e.name === activeChannel) ? "block" : "none";
+        col.style.display = "none";
+	}
+}
+
+function printValue(root, value, order)
+{
+	var type = Array.isArray(value) ? "array" : typeof value;
+
+	switch (type) {
+	case "array":
+		var obj = document.createElement('div');
+		obj.className = "obj-block";
+		root.appendChild(obj);
+		for (var i in value) {
+			obj.appendChild(document.createTextNode('['+i+'] '));
+			printValue(obj, value[i], order);
+		}
+		break;
+
+	case "object":
+		var obj = document.createElement('div');
+		obj.className = "obj-block";
+		root.appendChild(obj);
+		if (order === undefined)
+			order = Object.keys(value);
+		for (var i = 0; i < order.length; i += 1) {
+			name = order[i];
+			obj.appendChild(document.createTextNode(name));
+			obj.appendChild(document.createElement('br'));
+			printRecursive(obj, value[name]);
+		}
+		break;
+
+	default:
+	case "number":
+	case "string":
+		root.appendChild(document.createTextNode(value));
+		root.appendChild(document.createElement('br'));
+		break;
+	}
+}
+
+function printRecursive(root, msg)
+{
+	root.appendChild(document.createTextNode(msg.t));
+	root.appendChild(document.createElement('br'));
+
+	printValue(root, msg.v, msg.o);
+	root.appendChild(document.createElement('br'));
+}
+
+function msgCallback(request)
+{
+	if (request.status != 200) {
+		activeChannel = null;
+		return;
+	}
+
+	var msg = JSON.parse(request.responseText);
+
+	var root = document.getElementById("msg-container");
+	root.innerHTML = "";
+
+	var obj = document.createElement('div');
+	obj.className = "obj-block";
+	root.appendChild(obj);
+	printRecursive(obj, msg)
+}
+
+function ajax(url, callback)
+{
+	var request = new XMLHttpRequest();
+	request.onreadystatechange = function () {
+		if (request.readyState == 4)
+			callback(request);
+	}
+	request.open("GET", url);
+	request.send(null);
+}
+
+function poll()
+{
+	ajax("/list/", listCallback);
+	if (activeChannel !== null)
+		ajax("/msg/"+activeChannel, msgCallback);
+}
+</script>
+</head>
+
+<body>
+<div id="list-container"></div>
+<div id="msg-container"></div>
+<br>
+<br>
+<iframe id="spy-container" src="index.html"></iframe>
+<script>
+poll();
+var task = setInterval(poll, 1000);
+</script>
+</body>
+</html>

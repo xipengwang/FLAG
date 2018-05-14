@@ -1,0 +1,16 @@
+struct procman_command_t
+{
+    int64_t utime;
+
+    // the utime copied from the process_list
+    int64_t received_utime;
+
+    // the initialization time of the controller
+    int64_t received_init_utime;
+
+    // the unique process identifier
+    int32_t procid;
+
+    // should this process run?
+    boolean enabled;
+}

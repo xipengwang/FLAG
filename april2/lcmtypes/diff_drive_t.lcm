@@ -1,0 +1,10 @@
+struct diff_drive_t
+{
+	int64_t utime;
+
+	double  left;         // [-1, 1]
+	boolean left_enabled; // if false, motor is free-turning
+
+	double  right;        // [-1,1]
+	boolean right_enabled;
+}

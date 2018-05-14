@@ -1,0 +1,45 @@
+struct health_report_t
+{
+    /* utime - Timestamp of the health report, in microseconds since UNIX epoch.
+
+       This field may be used to reject messages that come in out of order.
+     */
+    int64_t utime;
+
+    /* name - The name of the subsystem (e.g. APRIL.procstat.<procname>)
+
+       This field will be nested on .'s. For example, the above would create a
+       heading "APRIL", a subheading "procstat" under "APRIL", and an item
+       "<procname>" under procstat. These can be infinitely nested.
+
+       Something like this:
+       APRIL
+       | - procstat
+           | - <procname>
+
+       Note: It is an error to send a message with only a heading name.
+       e.g. sending "APRIL.procstat.procname" then "APRIL.procstat".
+       "APRIL.procstat" will have already been designated a heading. The intent
+       is to function like files and directories. Only publish files, their
+       containing directories will be created automatically.
+    */
+    string name;
+
+    /* status - One of {OK, WRN, ERR}
+
+       OK  indicates that everything is running smoothly in this subsystem.
+       WRN indicates that a minor (recoverable) error has occurred.
+       ERR indicates that a major (potentially fatal) error has occurred.
+    */
+    const int8_t OK  = 1;
+    const int8_t WRN = 2;
+    const int8_t ERR = 3;
+    int8_t status;
+
+    /* message - This is a message describing the state of the subsystem.
+
+       You can use this however you'd like. On errors it should probably be
+       something that helps you fix the error.
+    */
+    string message;
+}

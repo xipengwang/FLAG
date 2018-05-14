@@ -1,0 +1,10 @@
+struct procman_process_list_t
+{
+	int64_t utime;
+    int64_t init_utime; // utime when controller starts
+
+    boolean exit; // Sends signal to daemon to quit all processes and then shutdown
+
+	int32_t nprocs;
+	procman_process_t processes[nprocs];
+}

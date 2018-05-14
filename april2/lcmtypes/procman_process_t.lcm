@@ -1,0 +1,22 @@
+// This message represents a command TO a daemon from either
+// a controller or gui application
+struct procman_process_t
+{
+    // A unique identifier for this process that is stable across
+    // changes to cmdline and host.
+    int32_t procid;
+
+    string  name;
+    string  cmdline;
+    string  host;
+    string  group;
+
+    // Determines whether the process should be restarted automatically
+    boolean auto_restart;
+
+    // Determines the delay between restarting a process, in milliseconds
+    int32_t restart_delay_ms;
+
+    // Determines whether the process should be running
+    boolean enabled;
+}

@@ -1,0 +1,63 @@
+struct draw_object_t
+{
+    /* utime - Timestamp of the draw object, in microseconds since UNIX epoch. */
+    int32_t utime;
+
+    /* type - The type of object data contained in data.
+
+       This can be one of the below constants.
+       For all types, data is expected to be an array of x,y coordinates, termed vertices.
+       For _XY types data is of the form: {x0, y0, x1, y1, x2, y2, ..., xn, yn}
+
+       Primitive Types:
+       For POINTS_XY:        For i=0,1,2,...,n:   draw point at (xi, yi)
+       For LINE_SEGMENTS_XY: For i=0,2,4,...,n-1: draw line segment from (xi,yi) to (xi+1, yi+1)
+       For LINE_STRIP_XY:    For i=0,1,2,...,n-1: draw line segment from (xi,yi) to (xi+1, yi+1)
+       For TRIANGLES_XY:     For i=0,3,6,...,n-2: draw triangle with vertices (xi,yi), (xi+1, yi+1),
+                                                                              (xi+2, yi+2)
+       Advanced/Convenience Types:
+       For REGION_XY: draw simple polygon with vertices (x0,y0)-(xn, yn), triangulated using
+                      "ear clipping" algorithm.
+
+       For _XYT types data is of the form: {x0, y0, t0}
+       For ICON_XYT: draw an icon denoted by icon_style at point, (x0, y0), rotated t0 radians
+                     clockwise from north.
+       For TEXT_XYT: draw text specified by the "text" variable, at point (x0, y0), rotated t0
+                     radians clockwise from north.
+     */
+    const int8_t POINTS_XY        = 1;
+    const int8_t LINE_SEGMENTS_XY = 2;
+    const int8_t LINE_STRIP_XY    = 3;
+    const int8_t TRIANGLES_XY     = 4;
+    const int8_t REGION_XY        = 5;
+    const int8_t ICON_XYT         = 6;
+    const int8_t TEXT_XYT         = 7;
+    int8_t type;
+
+    /* icon_style - For ICON_XYT type objects, draw icons in this style.
+
+       This field depends on server side configuration. Default styles are "robot" and "human". The
+       server recieving this message may also provide other styles (e.g. "uav", "ugv", etc...).
+       Please contact the server administrator for a list of available styles.
+     */
+    string icon_style;
+
+    /* color - The color to draw the object. In RGBA format (Red, Green, Blue, Opacity), 0.0-1.0f.
+               Applied to lines, points, triangles, regions, and color-supporting icons.
+    */
+    float color[4];
+
+    /* scale - The scale of the object.
+               For lines and points, this is thickness, in pixels.
+               For icons this is a scale factor, in meters.
+               For text this is an arbitrary scale factor.
+     */
+    float scale;
+
+    /* text - The text to render for TEXT_XYT type objects */
+    string text;
+
+    /* ndata, data - The vertices to draw */
+    int32_t ndata;
+    double data[ndata];
+}

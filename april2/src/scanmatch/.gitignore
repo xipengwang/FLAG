@@ -1,0 +1,8 @@
+*.pnm
+*.pdf
+c*grind.out.*
+scanmatch_eval
+*.txt
+*.m
+*.eps
+*.png

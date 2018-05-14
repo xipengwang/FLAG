@@ -1,0 +1,9 @@
+struct speak_t
+{
+    int64_t utime;
+
+    string  args;       // optional arguments to pass to espeak
+    int32_t priority;   // lower = higher priority
+
+    string  message;    // human text to be spoken
+}

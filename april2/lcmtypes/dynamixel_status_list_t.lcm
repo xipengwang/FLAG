@@ -1,0 +1,5 @@
+struct dynamixel_status_list_t
+{
+  int32_t len;
+  dynamixel_status_t statuses[len];
+}
