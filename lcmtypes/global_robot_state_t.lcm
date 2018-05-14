@@ -1,0 +1,10 @@
+struct global_robot_state_t
+{
+    // utime for robot position.
+    int64_t utime;
+    int32_t robotid;
+    double xyt_global[3];
+
+    // see enclosing type for utime corresponding to this global map fix
+    double Li2G[3];
+}

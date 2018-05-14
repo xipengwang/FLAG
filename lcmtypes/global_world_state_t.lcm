@@ -1,0 +1,12 @@
+struct global_world_state_t
+{
+    int64_t utime; // ground station
+
+    grid_map_t global_map;
+
+    int32_t nrobots;
+    global_robot_state_t robots[nrobots];
+
+    double linearization_lat;
+    double linearization_lon;
+}

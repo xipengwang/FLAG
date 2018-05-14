@@ -1,0 +1,11 @@
+struct line_features_t
+{
+    // microseconds since the epoch
+    int64_t utime;
+
+    // vector containing line features, num_lines is
+    // the total number of lines in the vector
+    // [origin_x origin_y theta]
+    int32_t lines_data_length;
+    float lines[lines_data_length];
+}

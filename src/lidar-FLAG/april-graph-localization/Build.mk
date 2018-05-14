@@ -1,0 +1,18 @@
+SRCS = $(shell ls *.c)
+OBJS = $(SRCS:%.c=%.o)
+TARGET = $(BIN_PATH)/flag-graph
+
+CFLAGS := $(CFLAGS_STD) $(CFLAGS_COMMON) $(CFLAGS_VX) $(CFLAGS_LCMTYPES) $(CFLAGS_GRAPH)
+LDFLAGS := $(LDFLAGS_STD) $(LDFLAGS_COMMON) $(LDFLAGS_VX) $(LDFLAGS_LCMTYPES)  $(LDFLAGS_GRAPH)
+DEPS := $(DEPS_STD) $(DEPS_COMMON) $(DEPS_VX) $(DEPS_LCMTYPES) $(DEPS_GRAPH)
+
+include $(BUILD_COMMON)
+
+all: $(TARGET)
+	@/bin/true
+
+$(TARGET): $(OBJS) $(DEPS)
+	@$(LD) -o $@ $^ $(LDFLAGS)
+
+clean:
+	@rm -rf *.o $(OBJS) $(TARGET)
