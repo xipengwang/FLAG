@@ -1,0 +1,18 @@
+SRCS = $(shell ls *.c)
+OBJS = $(SRCS:%.c=%.o)
+TARGET = $(BIN_PATH)/velodyne-to-corner
+
+CFLAGS := $(CFLAGS_STD) $(CFLAGS_COMMON) $(CFLAGS_VX) $(CFLAGS_LCMTYPES) $(CFLAGS_APRIL_VELODYNE)
+LDFLAGS := $(LDFLAGS_STD) $(LDFLAGS_COMMON) $(LDFLAGS_VX) $(LDFLAGS_LCMTYPES) $(LDFLAGS_APRIL_VELODYNE)
+DEPS := $(DEPS_STD) $(DEPS_COMMON) $(DEPS_VX) $(DEPS_LCMTYPES) $(DEPS_APRIL_VELODYNE)
+
+include $(BUILD_COMMON)
+
+all: $(TARGET)
+	@/bin/true
+
+$(TARGET): $(OBJS) $(DEPS)
+	@$(LD) -o $@ $^ $(LDFLAGS)
+
+clean:
+	@rm -rf *.o $(OBJS) $(TARGET)
