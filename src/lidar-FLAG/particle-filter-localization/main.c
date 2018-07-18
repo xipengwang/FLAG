@@ -567,8 +567,8 @@ void line_feature_process(state_t *state, line_features_t *line_f)
                 /* range and bearing */
                 double zhat[2] = { doubles_distance(landmark, state->particles[k], 2),
                                    atan2(landmark[1] - state->particles[k][1], landmark[0] - state->particles[k][0]) };
-                double z[2] = { doubles_distance(landmark, xy, 2),
-                                atan2(landmark[1] - xy[1], landmark[0] - xy[0]) }; //observations
+                double z[2] = { doubles_distance(xy, state->particles[k], 2),
+                                atan2(xy[1] - state->particles[k][1], xy[0] - state->particles[k][0]) }; //observations
 
                 double delta_z[2] = { z[0] - zhat[0], mod2pi(z[1] - zhat[1])};
                 w[k] += normpdf_W(delta_z[0], 0, sensor_noise[0]);
