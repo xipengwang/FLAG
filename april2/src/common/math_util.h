@@ -48,6 +48,9 @@ extern "C" {
 # define M_TWOPI       6.2831853071795862319959  /* 2*pi */
 #endif
 
+#ifndef HUGE
+#define HUGE FLT_MAX
+#endif
 #ifndef M_PI
 # define M_PI 3.141592653589793238462643383279502884196
 #endif

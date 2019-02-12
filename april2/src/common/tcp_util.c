@@ -98,8 +98,10 @@ int tcp_util_listen(int port, int listenqueue, int localhost_only)
 
 int tcp_util_accept(int fd, struct sockaddr *addr, socklen_t *addrlen)
 {
-    if (addr)
-        memset(addr, 0, sizeof(struct sockaddr));
+    if (addr) {
+		memset(addr, 0, sizeof(struct sockaddr));
+	}
+
 
 	int newfd = accept(fd, addr, addrlen);
     if (newfd < 0) {

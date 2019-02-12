@@ -18,5 +18,5 @@ all: vx
 
 clean: vx_clean
 
-include $(APRIL_PATH)/src/vx/example/Rules.mk
-include $(APRIL_PATH)/src/vx/test/Rules.mk
+#include $(APRIL_PATH)/src/vx/example/Rules.mk
+#include $(APRIL_PATH)/src/vx/test/Rules.mk
