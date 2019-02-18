@@ -642,7 +642,7 @@ void line_feature_process(state_t *state, line_features_t *line_f)
     /* node = lastnode + z */
     doubles_xyt_inv_mul(odom_tmp, odom_pose, z);
     //TODO: sampling should be based on the distance moved not fixed covariance.
-    if(doubles_magnitude(z, 2) < 0.1) {
+    if(doubles_magnitude(z, 2) < 0.4) {
         //Move very little, just return;
         return;
     }
